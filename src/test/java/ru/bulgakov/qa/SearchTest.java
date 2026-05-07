@@ -41,4 +41,53 @@ public class SearchTest {
         switchTo().window(2);
         $x("/html/body/div[2]/div/div/main/div/div/div[2]/aside/div[1]/div/div/span/span/h3").shouldHave(text("₽ 47 000.00"));
     }
+
+    @Test
+    void firstTest() {
+        /*
+        Тест кейс
+        1. открыть поисковик яндекс
+        2. ввести данные сайта (demoqa)
+        3. нажать на кнопку "поиск"
+        4. в поисковой выдаче найти нужный сайт и кликнуть на него
+        5. нажать на кнопку "Elements"
+        6. нажать на кнопку "Text Box"
+        7. найти поле "Full Name" и ввести туда имя
+        8. нажать на кнопку "Submit"
+        9. проверить, что выдало Name:имя
+        10. нажать на кнопку "Check Box"
+        11. нажать на плюсик у Home
+        12. нажать на плюсик у Desctop
+        13. выбрать чек бокс Notes
+        14. проверить, что выдало You have selected : notes
+         */
+
+        Configuration.holdBrowserOpen = true;
+        open("https://ya.ru/");
+        $("#text").setValue("demoqa");
+        $("[type=submit]").click();
+
+//        используется для прохождения верификации
+//        $("#js-button").click();
+
+//        используется для отмены браузера по умолчанию
+//        $(".DistributionButtonClose").click();
+
+        $(byText("demoqa.com")).click();
+        switchTo().window(1);
+
+//        Если возникают проблемы с верификациями
+//        open("https://demoqa.com/");
+
+        $("[href='/elements']").click();
+        $$(".menu-list li").get(0).click();
+        $("[placeholder='Full Name']").setValue("Kirill");
+        $("#submit").click();
+        $("#name").shouldHave(text("Name:kirill"));
+        $$(".menu-list li").get(1).click();
+        $(".rc-tree-switcher").click();
+        $x("/html/body/div/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div[2]/span[2]").click();
+        $("[aria-label='Select Notes']").click();
+        $("#result").shouldHave(text("You have selected : notes"));
+    }
 }
