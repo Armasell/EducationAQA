@@ -3,8 +3,14 @@ package ru.bulgakov.qa;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.switchTo;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$x;
+
 
 public class SearchTest {
 
@@ -17,14 +23,14 @@ public class SearchTest {
         3. Нажать кнопку "поиск"
         4. в поисковой выдаче найти нужный сайт, кникнуть на него
         5. нажать на кнопку "Стоимость"
-
-        10.проверить, что к оплате 47000 рублей
+        6. нажать на кнопку "Хочу вкатиться в QA"
+        7. нажать на кнопку "Бегу оплачивать"
+        8. проверить, что к оплате 47000 рублей
          */
-        Configuration.holdBrowserOpen = true;
         open("https://ya.ru/");
         $("#text").setValue("bulgakov qa");
         $("[type=submit]").click();
-        $(".DistributionButtonClose").click();
+//        $(".DistributionButtonClose").click();
         $(byText("ivanbulgakovqa.ru")).click();
 
         switchTo().window(1);
@@ -33,5 +39,6 @@ public class SearchTest {
         $(byText("Бегу оплачивать")).click();
 
         switchTo().window(2);
+        $x("/html/body/div[2]/div/div/main/div/div/div[2]/aside/div[1]/div/div/span/span/h3").shouldHave(text("₽ 47 000.00"));
     }
 }
