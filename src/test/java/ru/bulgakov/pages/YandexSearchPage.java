@@ -26,8 +26,8 @@ public class YandexSearchPage {
         return this;
     }
 
-    public YandexSearchResultsPage submit() {
+    public YandexSearchPage submit() {
         submitButton.click();
-        return new YandexSearchResultsPage();
+        return this;
     }
 }

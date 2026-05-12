@@ -29,14 +29,14 @@ public class WelcomePage {
         return this;
     }
 
-    public LavaTopPage clickRunPay() {
+    public WelcomePage clickRunPay() {
         runPay.click();
-        return new LavaTopPage();
+        return this;
     }
 
 //    Методы страницы demoqa.com
-    public ElementsPage clickElements() {
+    public WelcomePage clickElements() {
         elementsButton.click();
-        return new ElementsPage();
+        return this;
     }
 }
