@@ -13,7 +13,6 @@ public class WsLoginPage {
     private final SelenideElement inputEmail = $("input#Email");
     private final SelenideElement inputPassword = $("input#Password");
     private final SelenideElement loginButton = $("input.login-button");
-    private final ElementsCollection headerLinks = $$("div.header-links ul li a");
 
     public WsLoginPage verifyLoginOpened() {
         pageTitle.shouldHave(text("Welcome, Please Sign In!"));
@@ -36,7 +35,9 @@ public class WsLoginPage {
     }
 
     public WsLoginPage checkLoginCompleted(String shownEmail) {
-        headerLinks.get(0).shouldHave(text(shownEmail));
+        WsWelcomePage wsWelcomePage = new WsWelcomePage();
+        wsWelcomePage.getHeaderLinks()
+                .get(0).shouldHave(text(shownEmail));
         return this;
     }
 }
