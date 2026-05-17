@@ -1,8 +1,8 @@
-package ru.bulgakov.qa;
+package ru.bulgakov.mentor.qa;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
-import ru.bulgakov.pages.*;
+import ru.bulgakov.mentor.pages.*;
 
 import static com.codeborne.selenide.Selenide.*;
 
