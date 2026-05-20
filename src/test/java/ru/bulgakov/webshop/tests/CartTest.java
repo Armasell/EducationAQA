@@ -3,12 +3,13 @@ package ru.bulgakov.webshop.tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.bulgakov.webshop.pages.WsCartPage;
+import ru.bulgakov.webshop.pages.WsComputerPage;
+import ru.bulgakov.webshop.pages.WsWelcomePage;
 import ru.bulgakov.webshop.steps.AuthSteps;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.bulgakov.webshop.config.Config.WEB_SHOP_URL;
 
@@ -23,26 +24,38 @@ public class CartTest {
     @Test
     void addItemToCartTest() {
         Configuration.holdBrowserOpen = true;
-        open(WEB_SHOP_URL);
-        $$("ul.top-menu li a").get(1).hover();
-        $(byText("Desktops")).click();
-        $$("div.product-grid div").get(0).click();
+        WsComputerPage wsComputerPage = new WsComputerPage();
+        WsCartPage wsCartPage = new WsCartPage();
 
-        String itemname = $("[itemprop=name]").getText();
-        String itemPrice = $("[itemprop=price]").getText();
+        open(WEB_SHOP_URL, WsWelcomePage.class)
+                .hoverOnComputers()
+                .openDesktopComputers()
+                .openComputer(1);
+
+        int processorNumber = 0;
+        String computerName = wsComputerPage.getComputerName();
+        String computerPrice = String.valueOf(wsComputerPage.getComputerPrice() + getProcessorSurcharge(processorNumber));
         String itemQuantity = "2";
+        wsComputerPage
+                .processorSelection(processorNumber)
+                .selectQuantity(itemQuantity)
+                .addToCart()
+                .verifyAddToCartSuccessMessage()
+                .verifyQuantityInCartInHeaderLinks(itemQuantity)
+                .openCart()
+                .verifyProductName(computerName);
 
-        $$("dl dd ul li").get(0).$("input#product_attribute_72_5_18_52").click();
-        $("input.qty-input").setValue(itemQuantity);
-        $("input.add-to-cart-button").click();
-        $("div.bar-notification.success").shouldBe(visible);
-        $("span.cart-qty").shouldHave(text(itemQuantity));
-        $("a.ico-cart").click();
+        wsCartPage.getFinalPrice().shouldHave(text(String.valueOf(
+                Float.parseFloat(computerPrice) * Float.parseFloat(itemQuantity))));
+        assertEquals(itemQuantity, wsCartPage.getItemQuantityInCart());
+    }
 
-        $("a.product-name").shouldHave(text(itemname));
-        String itemQuantityInCart = $("input.qty-input").getAttribute("value");
-        assertEquals(itemQuantity, itemQuantityInCart);
-        $("span.product-subtotal").shouldHave(text(String.valueOf(
-                Float.parseFloat(itemPrice) * Float.parseFloat(itemQuantity))));
+    private double getProcessorSurcharge(int processorIndex) {
+        return switch (processorIndex) {
+            case 0 -> 0;
+            case 1 -> 15;
+            case 2 -> 100;
+            default -> throw new IllegalArgumentException("Unknown processor index: " + processorIndex);
+        };
     }
 }
