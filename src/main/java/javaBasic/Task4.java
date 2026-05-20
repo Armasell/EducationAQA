@@ -14,10 +14,6 @@ public class Task4 {
         prices.add(4324.24);
         prices.add(234.44);
         double budget = 5000;
-        double sum = 0;
-        for(double price : prices) {
-            sum += price;
-        }
 
         int count = 0;
         double sumItemsPrice = 0;

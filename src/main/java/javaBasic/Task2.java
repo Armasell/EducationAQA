@@ -12,8 +12,8 @@ public class Task2 {
         fruits.add("Груша");
         fruits.add("Мандарин");
         fruits.add("Банан");
-        for (int i = 1; i <= fruits.size(); i++) {
-            System.out.println(i + ". " + fruits.get(i - 1));
+        for (int i = 0; i < fruits.size(); i++) {
+            System.out.println((i + 1) + ". " + fruits.get(i));
         }
     }
 }
