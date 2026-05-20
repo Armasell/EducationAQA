@@ -11,14 +11,12 @@ public class WsCartPage {
     private final SelenideElement finalPrice = $("span.product-subtotal");
     private final SelenideElement itemQuantityField = $("input.qty-input");
 
-    public WsCartPage verifyProductName(String productName) {
-        productNameField.shouldHave(text(productName));
-        return this;
+    public SelenideElement getFinalPrice() {
+        return finalPrice;
     }
 
-    public WsCartPage verifyFinalPrice(String itemPrice, String itemQuantity) {
-        finalPrice.shouldHave(text(String.valueOf(
-                Float.parseFloat(itemPrice) * Float.parseFloat(itemQuantity))));
+    public WsCartPage verifyProductName(String productName) {
+        productNameField.shouldHave(text(productName));
         return this;
     }
 

@@ -3,8 +3,6 @@ package ru.bulgakov.webshop.pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -37,23 +35,8 @@ public class WsWelcomePage {
         return this;
     }
 
-    public WsWelcomePage openDesktopComputers() {
+    public WsProductPage openDesktopComputers() {
         desktopComputersButton.click();
-        return this;
-    }
-
-    public WsWelcomePage verifyAddToCartSuccessMessage() {
-        addToCartSuccessMessage.shouldBe(visible);
-        return this;
-    }
-
-    public WsWelcomePage verifyQuantityInCartInHeaderLinks(String itemQuantity) {
-        headerLinks.get(2).$("span.cart-qty").shouldHave(text(itemQuantity));
-        return this;
-    }
-
-    public WsWelcomePage openCart() {
-        headerLinks.get(2).$("span.cart-label").click();
-        return this;
+        return new WsProductPage();
     }
 }

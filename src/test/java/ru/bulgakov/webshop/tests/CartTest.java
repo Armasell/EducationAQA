@@ -5,10 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.bulgakov.webshop.pages.WsCartPage;
 import ru.bulgakov.webshop.pages.WsComputerPage;
-import ru.bulgakov.webshop.pages.WsProductPage;
 import ru.bulgakov.webshop.pages.WsWelcomePage;
 import ru.bulgakov.webshop.steps.AuthSteps;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.bulgakov.webshop.config.Config.WEB_SHOP_URL;
@@ -23,36 +23,39 @@ public class CartTest {
 
     @Test
     void addItemToCartTest() {
-        WsWelcomePage wsWelcomePage = new WsWelcomePage();
-        WsProductPage wsProductPage = new WsProductPage();
+        Configuration.holdBrowserOpen = true;
         WsComputerPage wsComputerPage = new WsComputerPage();
         WsCartPage wsCartPage = new WsCartPage();
-        String itemQuantity = "2";
 
-        open(WEB_SHOP_URL);
-        wsWelcomePage
+        open(WEB_SHOP_URL, WsWelcomePage.class)
                 .hoverOnComputers()
-                .openDesktopComputers();
-
-        wsProductPage
+                .openDesktopComputers()
                 .openComputer(1);
 
+        int processorNumber = 0;
         String computerName = wsComputerPage.getComputerName();
-        String computerPrice = wsComputerPage.getComputerPrice();
+        String computerPrice = String.valueOf(wsComputerPage.getComputerPrice() + getProcessorSurcharge(processorNumber));
+        String itemQuantity = "2";
         wsComputerPage
-                .processorSelection(1)
+                .processorSelection(processorNumber)
                 .selectQuantity(itemQuantity)
-                .addToCart();
-
-        wsWelcomePage
+                .addToCart()
                 .verifyAddToCartSuccessMessage()
                 .verifyQuantityInCartInHeaderLinks(itemQuantity)
-                .openCart();
+                .openCart()
+                .verifyProductName(computerName);
 
-        wsCartPage
-                .verifyProductName(computerName)
-                .verifyFinalPrice(computerPrice, itemQuantity);
-
+        wsCartPage.getFinalPrice().shouldHave(text(String.valueOf(
+                Float.parseFloat(computerPrice) * Float.parseFloat(itemQuantity))));
         assertEquals(itemQuantity, wsCartPage.getItemQuantityInCart());
+    }
+
+    private double getProcessorSurcharge(int processorIndex) {
+        return switch (processorIndex) {
+            case 0 -> 0;
+            case 1 -> 15;
+            case 2 -> 100;
+            default -> throw new IllegalArgumentException("Unknown processor index: " + processorIndex);
+        };
     }
 }
