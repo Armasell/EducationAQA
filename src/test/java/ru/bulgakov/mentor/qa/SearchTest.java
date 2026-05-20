@@ -2,17 +2,22 @@ package ru.bulgakov.mentor.qa;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
-import ru.bulgakov.mentor.pages.*;
+import ru.bulgakov.mentor.pages.ElementsPage;
+import ru.bulgakov.mentor.pages.LavaTopPage;
+import ru.bulgakov.mentor.pages.WelcomePage;
+import ru.bulgakov.mentor.pages.YandexSearchPage;
+import ru.bulgakov.mentor.pages.YandexSearchResultsPage;
+import ru.bulgakov.webshop.TestBase;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 
-public class SearchTest {
+public class SearchTest extends TestBase {
 
     @Test
     void mentoringPriceShouldBe47000Test() {
         Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
 
         YandexSearchPage yandexSearchPage = new YandexSearchPage();
         YandexSearchResultsPage yandexSearchResultsPage = new YandexSearchResultsPage();
@@ -43,7 +48,6 @@ public class SearchTest {
     @Test
     void firstTestPageObj() {
         Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
 
         YandexSearchPage yandexSearchPage = new YandexSearchPage();
         YandexSearchResultsPage yandexSearchResultsPage = new YandexSearchResultsPage();
