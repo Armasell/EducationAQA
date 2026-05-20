@@ -13,7 +13,6 @@ public class WsWelcomePage {
     private final SelenideElement loginButton = $("a.ico-login");
     private final ElementsCollection topMenu = $$("ul.top-menu li a");
     private final SelenideElement desktopComputersButton = $(byText("Desktops"));
-    private final SelenideElement addToCartSuccessMessage = $("div.bar-notification.success");
     private final ElementsCollection headerLinks = $$("div.header-links ul li a");
 
     public ElementsCollection getHeaderLinks() {
@@ -25,9 +24,9 @@ public class WsWelcomePage {
         return this;
     }
 
-    public WsWelcomePage openLogin() {
+    public WsLoginPage openLogin() {
         loginButton.click();
-        return this;
+        return new WsLoginPage();
     }
 
     public WsWelcomePage hoverOnComputers() {
