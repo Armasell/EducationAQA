@@ -1,7 +1,10 @@
 package ru.bulgakov.webshop.tests;
 
-import com.codeborne.selenide.Configuration;
+import io.qameta.allure.Link;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.bulgakov.webshop.TestBase;
 import ru.bulgakov.webshop.pages.WsCartPage;
@@ -11,6 +14,7 @@ import ru.bulgakov.webshop.steps.AuthSteps;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.SeverityLevel.CRITICAL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.bulgakov.webshop.config.Config.WEB_SHOP_URL;
 
@@ -23,8 +27,11 @@ public class CartTest extends TestBase {
     }
 
     @Test
+    @Severity(CRITICAL)
+    @Owner("Kirill")
+    @Link(name = "TASK-113")
+    @DisplayName("Добавление компьютера в корзину")
     void addItemToCartTest() {
-        Configuration.holdBrowserOpen = true;
         WsComputerPage wsComputerPage = new WsComputerPage();
         WsCartPage wsCartPage = new WsCartPage();
 

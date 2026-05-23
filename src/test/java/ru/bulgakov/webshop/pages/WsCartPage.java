@@ -1,6 +1,7 @@
 package ru.bulgakov.webshop.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -15,6 +16,7 @@ public class WsCartPage {
         return finalPrice;
     }
 
+    @Step("Проверить название товара: {productName}")
     public WsCartPage verifyProductName(String productName) {
         productNameField.shouldHave(text(productName));
         return this;

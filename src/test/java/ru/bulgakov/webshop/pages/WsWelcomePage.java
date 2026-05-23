@@ -2,6 +2,7 @@ package ru.bulgakov.webshop.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -19,21 +20,25 @@ public class WsWelcomePage {
         return headerLinks;
     }
 
+    @Step("Открыть окно регистрации")
     public WsWelcomePage openRegistration() {
         registerButton.click();
         return this;
     }
 
+    @Step("Открыть страницу логина")
     public WsLoginPage openLogin() {
         loginButton.click();
         return new WsLoginPage();
     }
 
+    @Step("Навестись на раздел с компьютерами")
     public WsWelcomePage hoverOnComputers() {
         topMenu.get(1).hover();
         return this;
     }
 
+    @Step("Открыть страницу с desktop компьютерами")
     public WsProductPage openDesktopComputers() {
         desktopComputersButton.click();
         return new WsProductPage();

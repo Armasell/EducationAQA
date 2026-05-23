@@ -1,6 +1,7 @@
 package ru.bulgakov.mentor.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -19,22 +20,26 @@ public class WelcomePage {
 
 
 //    Методы страницы ivanbulgakov.ru
+    @Step("Нажать кнопку Стоимость")
     public WelcomePage clickPrice() {
         price.click();
         return this;
     }
 
+    @Step("Нажать кнопку Вкатиться в QA")
     public WelcomePage clickWantGoQa() {
         wantGoQa.click();
         return this;
     }
 
+    @Step("Нажать кнопку Бегу оплачивать")
     public WelcomePage clickRunPay() {
         runPay.click();
         return this;
     }
 
 //    Методы страницы demoqa.com
+    @Step("Выбрать раздел Elements")
     public WelcomePage clickElements() {
         elementsButton.click();
         return this;
