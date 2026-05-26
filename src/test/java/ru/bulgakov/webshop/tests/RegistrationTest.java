@@ -13,6 +13,9 @@ import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.SeverityLevel.CRITICAL;
 import static ru.bulgakov.webshop.config.Config.WEB_SHOP_URL;
 
+@Epic("Авторизация")
+@Feature("Регистрация")
+@Story("Регистрация нового пользователя")
 public class RegistrationTest extends TestBase {
     private static final Faker faker = new Faker();
 
@@ -20,9 +23,6 @@ public class RegistrationTest extends TestBase {
     @Owner("Kirill")
     @Tag("positive")
     @Severity(CRITICAL)
-    @Epic("Авторизация")
-    @Feature("Регистрация")
-    @Story("Регистрация нового пользователя")
     @Link("TASK-120")
     @DisplayName("Успешная регистрация нового пользователя")
     @Description("Создаем нового пользователя со случайными данными через интерфейс")
@@ -44,7 +44,7 @@ public class RegistrationTest extends TestBase {
                 .enterLastName(faker.name().lastName())
                 .enterEmail(email)
                 .enterPassword(password)
-                .enterConfirmPassword("qwe")
+                .enterConfirmPassword(password)
                 .submitRegistration()
                 .checkRegistrationCompleted()
                 .checkEmailIsShown(email);

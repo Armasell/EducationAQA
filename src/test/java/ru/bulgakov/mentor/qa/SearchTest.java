@@ -1,6 +1,9 @@
 package ru.bulgakov.mentor.qa;
 
-import com.codeborne.selenide.Configuration;
+import io.qameta.allure.Link;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.bulgakov.mentor.pages.ElementsPage;
 import ru.bulgakov.mentor.pages.LavaTopPage;
@@ -9,15 +12,18 @@ import ru.bulgakov.mentor.pages.YandexSearchPage;
 import ru.bulgakov.mentor.pages.YandexSearchResultsPage;
 import ru.bulgakov.webshop.TestBase;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.switchTo;
+import static com.codeborne.selenide.Selenide.*;
+import static io.qameta.allure.SeverityLevel.*;
 
 
 public class SearchTest extends TestBase {
 
     @Test
+    @Severity(NORMAL)
+    @Owner("Kirill")
+    @Link(name = "TASK-111")
+    @DisplayName("Проверка стоимости обучения")
     void mentoringPriceShouldBe47000Test() {
-        Configuration.holdBrowserOpen = true;
 
         YandexSearchPage yandexSearchPage = new YandexSearchPage();
         YandexSearchResultsPage yandexSearchResultsPage = new YandexSearchResultsPage();
@@ -41,14 +47,20 @@ public class SearchTest extends TestBase {
                 .clickWantGoQa()
                 .clickRunPay();
 
+        switchTo().window(2);
+
         lavaTopPage
                 .verifyPrice("₽ 47 000.00");
     }
 
     @Test
+    @Severity(MINOR)
+    @Owner("Kirill")
+    @Link(name = "TASK-112")
+    @DisplayName("Проверка работоспособности полей сайта demoqa")
     void firstTestPageObj() {
-        Configuration.holdBrowserOpen = true;
 
+        closeWebDriver();
         YandexSearchPage yandexSearchPage = new YandexSearchPage();
         YandexSearchResultsPage yandexSearchResultsPage = new YandexSearchResultsPage();
         WelcomePage welcomePage = new WelcomePage();

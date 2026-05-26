@@ -17,6 +17,7 @@ public class WsLoginPage {
     private final SelenideElement loginButton = $("input.login-button");
     private final SelenideElement emailValidationErrorMessage = $("span.field-validation-error");
 
+    @Step("Проверить, что открыта страница с авторизацией")
     public WsLoginPage verifyLoginOpened() {
         pageTitle.shouldHave(text("Welcome, Please Sign In!"));
         return this;
@@ -46,6 +47,8 @@ public class WsLoginPage {
         return this;
     }
 
+
+    @Step("Проверить, что логин прошел успешно")
     public WsLoginPage checkLoginCompleted(String shownEmail) {
         WsWelcomePage wsWelcomePage = new WsWelcomePage();
         wsWelcomePage.getHeaderLinks()
