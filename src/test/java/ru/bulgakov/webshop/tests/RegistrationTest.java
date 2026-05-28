@@ -21,7 +21,6 @@ public class RegistrationTest extends TestBase {
 
     @Test
     @Owner("Kirill")
-    @Tag("positive")
     @Severity(CRITICAL)
     @Link("TASK-120")
     @DisplayName("Успешная регистрация нового пользователя")
