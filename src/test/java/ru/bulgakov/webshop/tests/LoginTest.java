@@ -4,10 +4,7 @@ import io.qameta.allure.Link;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import net.datafaker.Faker;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.bulgakov.webshop.TestBase;
@@ -44,6 +41,7 @@ public class LoginTest extends TestBase {
         }
 
         @Test
+        @Tags({@Tag("UI"), @Tag("positive")})
         @Severity(CRITICAL)
         @Owner("Kirill")
         @Link(name = "TASK-114")
@@ -63,6 +61,7 @@ public class LoginTest extends TestBase {
     }
 
     @ParameterizedTest(name = "Авторизация с невалидным email: {0}")
+    @Tags({@Tag("UI"), @Tag("negative")})
     @CsvFileSource(resources = "/email.csv")
     @Severity(CRITICAL)
     @Owner("Kirill")

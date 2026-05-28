@@ -3,9 +3,7 @@ package ru.bulgakov.webshop.tests;
 import io.qameta.allure.Link;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.bulgakov.webshop.TestBase;
 import ru.bulgakov.webshop.pages.WsCartPage;
 import ru.bulgakov.webshop.pages.WsComputerPage;
@@ -27,6 +25,7 @@ public class CartTest extends TestBase {
     }
 
     @Test
+    @Tags({@Tag("UI"), @Tag("positive")})
     @Severity(CRITICAL)
     @Owner("Kirill")
     @Link(name = "TASK-113")

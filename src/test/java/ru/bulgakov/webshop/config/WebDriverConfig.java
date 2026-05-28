@@ -12,6 +12,7 @@ public interface WebDriverConfig extends Config {
     @DefaultValue("local")
     String run();
 
+    @DefaultValue("chrome")
     String browser();
 
     String browserVersion();
