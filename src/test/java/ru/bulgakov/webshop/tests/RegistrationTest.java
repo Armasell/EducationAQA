@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import ru.bulgakov.webshop.TestBase;
 import ru.bulgakov.webshop.pages.WsRegistrationPage;
@@ -20,8 +21,8 @@ public class RegistrationTest extends TestBase {
     private static final Faker faker = new Faker();
 
     @Test
+    @Tags({@Tag("UI"), @Tag("positive")})
     @Owner("Kirill")
-    @Tag("positive")
     @Severity(CRITICAL)
     @Link("TASK-120")
     @DisplayName("Успешная регистрация нового пользователя")
