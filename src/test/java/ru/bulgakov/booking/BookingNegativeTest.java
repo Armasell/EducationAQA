@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.bulgakov.booking.dto.AuthRequest;
 import ru.bulgakov.booking.dto.AuthResponse;
-import ru.bulgakov.booking.dto.CreateBookingDto;
+import ru.bulgakov.booking.dto.BookingDto;
 import ru.bulgakov.booking.dto.CreatesBookingResponse;
 
 import java.util.stream.Stream;
@@ -204,19 +204,19 @@ public class BookingNegativeTest {
     }
 
 
-    private static CreateBookingDto buildBookingRequest(String firstname,
-                                                        String lastname,
-                                                        Integer totalprice,
-                                                        Boolean depositpaid,
-                                                        String checkin,
-                                                        String checkout,
-                                                        String additionalneeds) {
-        return CreateBookingDto.builder()
+    private static BookingDto buildBookingRequest(String firstname,
+                                                  String lastname,
+                                                  Integer totalprice,
+                                                  Boolean depositpaid,
+                                                  String checkin,
+                                                  String checkout,
+                                                  String additionalneeds) {
+        return BookingDto.builder()
                 .firstname(firstname)
                 .lastname(lastname)
                 .totalprice(totalprice)
                 .depositpaid(depositpaid)
-                .bookingdates(CreateBookingDto.BookingDates.builder()
+                .bookingdates(BookingDto.BookingDates.builder()
                         .checkin(checkin)
                         .checkout(checkout)
                         .build())

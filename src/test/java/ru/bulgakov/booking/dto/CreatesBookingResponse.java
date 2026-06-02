@@ -6,5 +6,5 @@ import lombok.Data;
 public class CreatesBookingResponse {
 
     private Integer bookingid;
-    private CreateBookingDto booking;
+    private BookingDto booking;
 }
