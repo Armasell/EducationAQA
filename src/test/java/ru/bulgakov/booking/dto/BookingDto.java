@@ -18,10 +18,18 @@ public class BookingDto {
     private BookingDates bookingdates;
     private String additionalneeds;
 
+    public BookingDto(String firstname, Integer totalprice, String checkin) {
+        this.firstname = firstname;
+        this.totalprice = totalprice;
+        this.bookingdates = new BookingDates();
+        this.bookingdates.checkin = checkin;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class BookingDates {
         private String checkin;
         private String checkout;
