@@ -1,8 +1,11 @@
 package ru.bulgakov.booking.steps;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import net.datafaker.Faker;
+import ru.bulgakov.booking.BookingApiClient;
 import ru.bulgakov.booking.dto.BookingDto;
+import ru.bulgakov.booking.dto.CreatesBookingResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -10,6 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class BookingSteps {
 
     private static final Faker faker = new Faker();
+    private final BookingApiClient bookingApiClient = new BookingApiClient();
+
+    public CreatesBookingResponse createBooking() {
+        return createBooking(randomBooking());
+    }
+
+    public CreatesBookingResponse createBooking(BookingDto booking) {
+        Response createResponse = bookingApiClient.createBooking(booking);
+
+        return createResponse.as(CreatesBookingResponse.class);
+    }
 
     @Step("Проверить соответствие всех полей в ответе")
     public static void bookingsShouldBeEqual(BookingDto expected, BookingDto actual) {
@@ -41,7 +55,7 @@ public class BookingSteps {
         );
     }
 
-    public static BookingDto buildBookingRequest() {
+    public static BookingDto randomBooking() {
         return BookingDto.builder()
                 .firstname(faker.name().firstName())
                 .lastname(faker.name().lastName())
